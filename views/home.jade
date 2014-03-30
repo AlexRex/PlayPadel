@@ -1,0 +1,62 @@
+extends layout
+
+block content
+	div.container
+		nav.navbar.navbar-inverse.navbar-fixed-top
+			div.container
+				div.navbar-header
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+						span.sr-only Toggle Navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/home') PadelIN
+				div.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li.active
+							a(href='/home') Home
+						li
+							a(href='/matchs') Create Match
+
+						form.navbar-form.navbar-left(action='/search', method='post')
+							div.form-group
+								input.form-control(type='text', placeholder='City', name='city')
+							button.btn.btn-default(type='submit') Search
+					ul.nav.navbar-nav.navbar-right
+						a.btn.btn-default.navbar-btn(href='/profile') Profile
+						| 
+						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
+
+		div.row
+			each match, i in matchs
+				div.well.col-sm-2
+					p
+						h3.strong 
+							city= matchs[i].city
+						
+						strong Club
+						| :
+						club= matchs[i].club
+						br
+						strong Price
+						| :
+						price= matchs[i].price
+						| €
+						br
+						strong Level
+						| :
+						lvl= matchs[i].cat
+						br
+						strong Players
+						| :
+						br
+						p1= matchs[i].players[0]
+						br
+						p2= matchs[i].players[1] 
+						br
+						p3= matchs[i].players[2]
+						br
+						p4= matchs[i].players[3]
+
+					a.btn.btn-success(href='/play/'+matchs[i]._id) Play
+

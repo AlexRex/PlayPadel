@@ -1,0 +1,57 @@
+extends layout
+
+block content
+	div.container
+		nav.navbar.navbar-inverse.navbar-fixed-top
+			div.container
+				div.navbar-header
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+						span.sr-only Toggle Navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/home') PadelIN
+				div.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li
+							a(href='/home') Home
+						li.active
+							a(href='/matchs') Create Match
+
+						form.navbar-form.navbar-left(action='/search', method='post')
+							div.form-group
+								input.form-control(type='text', placeholder='City', name='city')
+							button.btn.btn-default(type='submit') Search
+					ul.nav.navbar-nav.navbar-right
+						a.btn.btn-default.navbar-btn(href='/profile') Profile
+						| 
+						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
+		div.col-sm-6.col-sm-offset-3
+
+			h1.fa.fa-sign-in  Create Match
+
+			
+
+			form(action='/matchs', method='post')
+				div.form-group
+					label City
+					input.form-control(type='text', name='city')
+				div.form-group
+					label Club
+					input.form-control(type='text', name='club')
+				div.form-group
+					label Price
+					input.form-control(type='float', name='price')
+				div
+					label Level
+					select.form-group(name="cat")
+						option(value="Primera") Primera
+						option(value="Segunda") Segunda
+						option(value="Tercera") Tercera
+						option(value="Cuarta") Cuarta
+
+
+				button.btn.btn-warning.btn-lg(type='submit') Create
+
+			hr
+
