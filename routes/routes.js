@@ -104,8 +104,13 @@ module.exports = function(app, passsport){
 
 	//Play GAME
 	app.get('/play/:id', isLoggedIn, function(req, res){
-
 		matchs.playMatch(req, res, req.user);
+	});
+
+
+	//Don't play
+	app.get('/delete/:id', isLoggedIn, function(req, res){
+		matchs.dontPlay(req, res, req.user);
 	});
 
 

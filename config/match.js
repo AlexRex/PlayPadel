@@ -41,6 +41,21 @@ exports.playMatch = function(req, res, user){
 
 };
 
-exports.removeMatch = function(req, res, user){
+exports.dontPlay = function(req, res, user){
+	Match.findById(req.params.id, function(err, match){
+		if(!err){
+			index = match.players.indexOf(user.local.email);
+			if(index > -1){
+				match.players.splice(index, 1);
+				match.save();
+				console.log(match);
+			}
+			res.redirect('/home');
+		}
+		else{
+			res.send(400);
+			console.log('Error: '+err);
+		}
+	});
 
 };
