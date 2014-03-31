@@ -61,8 +61,11 @@ block content
 
 						-if(matchs[i].players.indexOf(user.local.email)==-1 && matchs[i].players.length<3)
 							a.btn.btn-success(href='/play/'+matchs[i]._id) Play
-						-if(matchs[i].players.indexOf(user.local.email)>=0)
-							a.btn.btn-warning(href='/delete/'+matchs[i]._id) Don't play
+						-if(matchs[i].players.indexOf(user.local.email)>=0 && matchs[i].owner!=user.local.email)
+							a.btn.btn-warning(href='/notplay/'+matchs[i]._id) Don't play
+						-if(matchs[i].owner===user.local.email)
+							| 
+							a.btn.btn-danger(href='/remove/'+matchs[i]._id) Remove 
 							
 						
 						

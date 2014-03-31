@@ -13,7 +13,9 @@ var matchSchema = new Schema({
 	club: {type: String},
 	price: {type: Number},
 	cat: {type: String},
-	players: {type: [String]}
+	players: {type: [String]},
+	owner: {type: String}
+
 });
 
 

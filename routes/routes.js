@@ -69,17 +69,11 @@ module.exports = function(app, passsport){
 		});
 	});
 
-	//Create Match
+	//View for create Match
 	app.get('/matchs', isLoggedIn, function(req, res){
 		res.render('matchs.jade', {
 			title: 'Create Match'
 		});
-	});
-
-	//PROBLEMAS - Semisolucionados
-	app.post('/matchs', function(req, res){
-		console.log(req.body);
-		matchs.createMatch(req, res);
 	});
 
 
@@ -101,6 +95,12 @@ module.exports = function(app, passsport){
 
 	});
 
+	//Create Match
+	app.post('/matchs', function(req, res){
+		console.log(req.body);
+		matchs.createMatch(req, res, req.user);
+	});
+
 
 	//Play GAME
 	app.get('/play/:id', isLoggedIn, function(req, res){
@@ -109,10 +109,15 @@ module.exports = function(app, passsport){
 
 
 	//Don't play
-	app.get('/delete/:id', isLoggedIn, function(req, res){
+	app.get('/notplay/:id', isLoggedIn, function(req, res){
 		matchs.dontPlay(req, res, req.user);
 	});
 
+
+	//Remove match
+	app.get('/remove/:id', isLoggedIn, function(req, res){
+		matchs.removeMatch(req, res, req.user);
+	});
 
 
 

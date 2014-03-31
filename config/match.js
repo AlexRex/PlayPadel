@@ -1,13 +1,15 @@
 
 var Match = require('../models/match');
 
-exports.createMatch = function(req, res){
+exports.createMatch = function(req, res, user){
 
 		var mat = new Match({
 			city: req.body.city,
 			club: req.body.club,
 			price: req.body.price,
-			cat: req.body.cat
+			cat: req.body.cat,
+			players: user.local.email,
+			owner: user.local.email
 		});
 
 		mat.save(function(err){
@@ -21,7 +23,7 @@ exports.createMatch = function(req, res){
 	
 };
 
-
+//Add user to match
 exports.playMatch = function(req, res, user){
 	Match.findById(req.params.id, function(err, match){
 		if(!err){
@@ -41,6 +43,7 @@ exports.playMatch = function(req, res, user){
 
 };
 
+//Remove user from player list
 exports.dontPlay = function(req, res, user){
 	Match.findById(req.params.id, function(err, match){
 		if(!err){
@@ -57,5 +60,17 @@ exports.dontPlay = function(req, res, user){
 			console.log('Error: '+err);
 		}
 	});
+};
 
+exports.removeMatch = function(req, res, user){
+	Match.findByIdAndRemove(req.params.id, function(err, match){
+		if(!err){
+			res.redirect('/home');
+		}
+		else{
+			res.send(400);
+			console.log('Error: '+err);
+		}
+
+	});
 };
