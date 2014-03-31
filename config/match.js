@@ -40,3 +40,7 @@ exports.playMatch = function(req, res, user){
 
 
 };
+
+exports.removeMatch = function(req, res, user){
+
+};

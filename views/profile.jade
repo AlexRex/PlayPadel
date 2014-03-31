@@ -2,7 +2,7 @@ extends layout
 
 block content
 	div.container
-		nav.navbar.navbar-inverse.navbar-fixed-top
+		nav.navbar.navbar-default.navbar-fixed-top
 			div.container
 				div.navbar-header
 					button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
@@ -10,7 +10,7 @@ block content
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a.navbar-brand(href='/home') PadelIN
+					a.navbar-brand(href='/home') PadelPlay
 				div.navbar-collapse.collapse
 					ul.nav.navbar-nav
 						li
@@ -23,6 +23,7 @@ block content
 								input.form-control(type='text', placeholder='City', name='city')
 							button.btn.btn-default(type='submit') Search
 					ul.nav.navbar-nav.navbar-right
+
 						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
 
 		div.page-header.text-center

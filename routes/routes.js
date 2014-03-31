@@ -60,7 +60,8 @@ module.exports = function(app, passsport){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
 		    	matchs: match,
-		    	title: 'Home'
+		    	title: 'Home - PadelPlay',
+		    	user: req.user
 		    });
 		  }
 		  else
@@ -83,13 +84,15 @@ module.exports = function(app, passsport){
 
 
 	//SEARCH
-	app.post('/search', function(req, res){
-		console.log(req.body);
-		var cit = new RegExp(req.body.city, 'i');  // 'i' makes it case insensitive
+	app.get('/search', isLoggedIn, function(req, res){
+		console.log(req.param('city'));
+		var cit = new RegExp(req.param('city'), 'i');  // 'i' makes it case insensitive
 		Match.find({'city' : cit}, function(err, match){
 			if(!err){
 				res.render('home.jade', {
-					matchs: match
+					matchs: match,
+					title: req.param('city')+' - PadelPlay',
+					user: req.user
 				});
 			}
 			else

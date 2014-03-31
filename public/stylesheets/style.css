@@ -1,4 +1,7 @@
 body {
 	min-height: 2000px;
-  padding-top: 60px;
+  	padding-top: 75px;
+}
+.matchs{
+	min-height: 300px;
 }
