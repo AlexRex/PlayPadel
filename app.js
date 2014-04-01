@@ -48,7 +48,7 @@ app.configure(function(){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+require('./routes/accounts.js')(app, passport);
 require('./routes/routes.js')(app, passport);
 
 
