@@ -13,6 +13,12 @@ var userSchema = new Schema({
 	local:{
 		email: String,
 		password: String,
+	},
+	facebook:{
+		id: String,
+		token: String,
+		email: String,
+		name: String
 	}
 
 });

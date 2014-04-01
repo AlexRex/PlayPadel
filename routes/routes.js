@@ -14,6 +14,11 @@ module.exports = function(app, passsport){
 		res.redirect('/home');
 	})
 
+
+	// =============================================================================
+	// AUTHENTICATE (FIRST LOGIN) ==================================================
+	// =============================================================================
+
 	//LOGIN
 	//Show login form
 	app.get('/login', function(req, res){
@@ -21,11 +26,11 @@ module.exports = function(app, passsport){
 	});
 
 	app.post('/login', passport.authenticate('local-login', {
-
 		successRedirect: '/home',
 		failureRedirect: '/login',
 		failureFlash: true
 	}));
+
 
 	//SIGNUP
 	app.get('/signup', function(req, res){
@@ -39,6 +44,68 @@ module.exports = function(app, passsport){
 	}));
 
 
+	//LOGOUT
+	app.get('/logout', function(req, res){
+		req.logout();
+		res.redirect('/');
+	});
+
+
+	//FACEBOOK ROUTES
+	//route for fb auth
+	app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+	//callback
+	app.get('/auth/facebook/callback',
+	        passport.authenticate('facebook', {
+	        	successRedirect: '/profile', 
+	        	failureRedirect: '/'
+	        }));
+	
+
+
+	// =============================================================================
+	// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
+	// =============================================================================
+
+
+	// locally --------------------------------
+		app.get('/connect/local', function(req, res) {
+			res.render('connect-local.jade', { message: req.flash('loginMessage') });
+		});
+		app.post('/connect/local', passport.authenticate('local-signup', {
+			successRedirect : '/profile', // redirect to the secure profile section
+			failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
+			failureFlash : true // allow flash messages
+		}));
+
+	// facebook -------------------------------
+
+		// send to facebook to do the authentication
+		app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+
+		// handle the callback after facebook has authorized the user
+		app.get('/connect/facebook/callback',
+			passport.authorize('facebook', {
+				successRedirect : '/profile',
+				failureRedirect : '/'
+			}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//PROFILE
 	//Have to be logged to access
 	app.get('/profile', isLoggedIn, function(req, res){
@@ -47,11 +114,7 @@ module.exports = function(app, passsport){
 		});
 	});
 
-	//LOGOUT
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
+
 
 	//HOME
 	app.get('/home', isLoggedIn, function(req, res){

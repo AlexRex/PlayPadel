@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+	div.container
+		div.col-sm-6.col-sm-offset-3
+
+			h1.fa.fa-sign-in  Add local Account
+
+			-if(message.length>0)
+				div.alert.alert-danger 
+					message= message
+
+			form(action='/connect/local', method='post')
+				div.form-group
+					label Email
+					input.form-control(type='text', name='email', required)
+				div.form-group
+					label Password
+					input.form-control(type='password', name='password', required)
+
+				button.btn.btn-warning.btn-lg(type='submit') Add LOcal
+
+			hr
+
+			p Already have an account?  
+				a(href='/login') Login
