@@ -53,8 +53,6 @@ block content
 							strong password
 							| : 
 							password= user.local.password
-
-						a.btn.btn-warning(href='/unlink/local') Unlink account
 				
 
 			div.col-sm-7
@@ -76,10 +74,10 @@ block content
 							br
 							strong token
 							| : 
-							password= user.facebook.token
+							//-password= user.facebook.token
 							br
 							strong name
 							| :
-							name= user.facebook.name
+							name= user.facebook.name + ' ' + user.facebook.lastName
 
 						a.btn.btn-warning(href='/unlink/facebook') Unlink account

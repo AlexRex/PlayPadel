@@ -23,7 +23,7 @@ block content
 								input.form-control(type='text', placeholder='City', name='city')
 							button.btn.btn-default(type='submit') Search
 					ul.nav.navbar-nav.navbar-right
-						a.btn.btn-default.navbar-btn(href='/profile') Profile
+						a.btn.btn-default.navbar-btn(href='/profile')= user.local.name + ' ' + user.local.lastName
 						| 
 						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
 

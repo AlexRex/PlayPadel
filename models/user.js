@@ -11,6 +11,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
 
 	local:{
+		name: String,
+		lastName: String,
 		email: String,
 		password: String,
 	},
@@ -18,6 +20,7 @@ var userSchema = new Schema({
 		id: String,
 		token: String,
 		email: String,
+		lastName: String,
 		name: String
 	}
 

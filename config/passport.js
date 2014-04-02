@@ -40,7 +40,7 @@ module.exports = function(passport){
 		//function findOne wont fire until data is sent back
 		process.nextTick(function(){
 
-			if(!req.user) { //Si no existe creo uno nuevo
+			if(!req.user) { //Si no esta loged creo uno nuevo
 				User.findOne({ 'local.email' : email}, function(err, user){
 				//if there are any errors
 				if(err)
@@ -54,9 +54,11 @@ module.exports = function(passport){
 				//create user
 				else {
 					var newUser = new User();
-
+					console.log(req.body.name);
 					//Set the user's local credentials
 					newUser.local.email = email;
+					newUser.local.name = req.body.name;
+					newUser.local.lastName = req.body.lastName;
 					newUser.local.password = newUser.generateHash(password);
 
 					//Save the user
@@ -69,11 +71,13 @@ module.exports = function(passport){
 				}
 				});
 			}
-			else{
+			else{ //If the user already exists...
 				var user = req.user;
 
 				//Set the user's local credentials
 				user.local.email = email;
+				user.local.name = name;
+				user.local.lastName = lastName;
 				user.local.password = user.generateHash(password);
 
 				//Save the user
@@ -125,7 +129,6 @@ module.exports = function(passport){
 		passReqToCallback: true
 
 	},
-
 	//Facebook send back token and profile
 	function(req, token, refreshToken, profile, done){
 		
@@ -142,8 +145,10 @@ module.exports = function(passport){
 						// just add our token and profile information
 					    if (!user.facebook.token) {
 					        user.facebook.token = token;
-					        user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+					        user.facebook.name  = profile.name.givenName;
+					        user.facebook.lastName = profile.name.familyName;
 					        user.facebook.email = profile.emails[0].value;
+					        user.local.email = profile.emails[0].value; //Save the email from fb if the user doesn't exists
 
 					        user.save(function(err) {
 					            if (err)
@@ -153,13 +158,18 @@ module.exports = function(passport){
 					    }
 						return done(null, user);
 					}
-					else {
+					else { //if the user is new
 						var newUser = new User();
 
 						newUser.facebook.id = profile.id;
 						newUser.facebook.token = token;
-						newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+						newUser.facebook.name = profile.name.givenName;
+						newUser.facebook.lastName = profile.name.familyName;
 						newUser.facebook.email = profile.emails[0].value;
+						newUser.local.email = profile.emails[0].value; //Save the email and name from fb if the user doesn't exists
+						newUser.local.name = profile.name.givenName;
+						newUser.local.name = profile.name.lastName;
+
 
 						newUser.save(function(err){
 							if(err) throw err;
@@ -177,7 +187,8 @@ module.exports = function(passport){
 				//update user credentials
 				user.facebook.id = profile.id;
 				user.facebook.token = token;
-				user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+				user.facebook.name = profile.name.givenName;
+				user.facebook.lastName = profile.name.familyName;
 				user.facebook.email = profile.emails[0].value;
 				
 				//save user
