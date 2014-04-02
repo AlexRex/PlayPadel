@@ -168,7 +168,7 @@ module.exports = function(passport){
 						newUser.facebook.email = profile.emails[0].value;
 						newUser.local.email = profile.emails[0].value; //Save the email and name from fb if the user doesn't exists
 						newUser.local.name = profile.name.givenName;
-						newUser.local.name = profile.name.lastName;
+						newUser.local.lastName = profile.name.familyName;
 
 
 						newUser.save(function(err){
