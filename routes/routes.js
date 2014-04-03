@@ -7,7 +7,7 @@ module.exports = function(app, passsport){
 
 	//INDEX
 	app.get('/index', function(req, res){
-		res.render('index', { title: 'Express' });
+		res.render('index', { title: 'PadelPlay', message: req.flash('loginMessage') });
 	});
 
 	app.get('/', function(req, res){

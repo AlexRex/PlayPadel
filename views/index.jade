@@ -2,7 +2,11 @@ extends layout
 
 block content
 	div.container
+
 		div.jumbotron.text-center
+			-if(message.length>0)
+				div.alert.alert-danger 
+					message= message
 			h1
 				span.fa.fa-lock 
 				|  PadelPlay

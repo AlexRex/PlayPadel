@@ -107,10 +107,10 @@ module.exports = function(passport){
 					return done(err);
 
 				if(!user)
-					return done(null, false, req.flash('loginMessage', 'No user found.'));
+					return done(null, false, req.flash('loginMessage', 'Oops! Wrong user or password.'));
 
 				if(!user.validPassword(password))
-					return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+					return done(null, false, req.flash('loginMessage', 'Oops! Wrong user or password.'));
 
 
 				return done(null, user);
@@ -159,22 +159,31 @@ module.exports = function(passport){
 						return done(null, user);
 					}
 					else { //if the user is new
-						var newUser = new User();
 
-						newUser.facebook.id = profile.id;
-						newUser.facebook.token = token;
-						newUser.facebook.name = profile.name.givenName;
-						newUser.facebook.lastName = profile.name.familyName;
-						newUser.facebook.email = profile.emails[0].value;
-						newUser.local.email = profile.emails[0].value; //Save the email and name from fb if the user doesn't exists
-						newUser.local.name = profile.name.givenName;
-						newUser.local.lastName = profile.name.familyName;
+						User.findOne({'local.email' : profile.emails[0].value}, function(err, user){
+
+							if(err) return done(err);
+
+							if(!user){
+								var newUser = new User();
+
+								newUser.facebook.id = profile.id;
+								newUser.facebook.token = token;
+								newUser.facebook.name = profile.name.givenName;
+								newUser.facebook.lastName = profile.name.familyName;
+								newUser.facebook.email = profile.emails[0].value;
+								newUser.local.email = profile.emails[0].value; //Save the email and name from fb if the user doesn't exists
+								newUser.local.name = profile.name.givenName;
+								newUser.local.lastName = profile.name.familyName;
 
 
-						newUser.save(function(err){
-							if(err) throw err;
+								newUser.save(function(err){
+									if(err) throw err;
 
-							return done(null, newUser);
+									return done(null, newUser);
+								});
+							}
+							else return done(null, false, req.flash('loginMessage', 'The email from facebook is taken.'));
 						});
 					}
 				

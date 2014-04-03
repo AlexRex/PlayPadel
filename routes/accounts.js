@@ -78,7 +78,8 @@ module.exports = function(app, passsport){
 	app.get('/connect/facebook/callback',
 		passport.authorize('facebook', {
 			successRedirect : '/home',
-			failureRedirect : '/'
+			failureRedirect : '/',
+			failureFlash: true
 	}));
 
 	// =============================================================================
