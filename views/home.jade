@@ -31,6 +31,9 @@ block content
 			each match, i in matchs
 				div.col-sm-3
 					div.well.matchs
+						-if(messageGame.length>0)
+							div.alert.alert-danger
+								messageGame= messageGame
 						p
 							h3.strong 
 								city= matchs[i].city
@@ -59,7 +62,7 @@ block content
 							br
 							p4= matchs[i].players[3]
 
-						-if(matchs[i].players.indexOf(user.local.email)==-1 && matchs[i].players.length<3)
+						-if(matchs[i].players.indexOf(user.local.email)==-1 && matchs[i].players.length<4)
 							a.btn.btn-success(href='/play/'+matchs[i]._id) Play
 						-if(matchs[i].players.indexOf(user.local.email)>=0 && matchs[i].owner!=user.local.email)
 							a.btn.btn-warning(href='/notplay/'+matchs[i]._id) Don't play

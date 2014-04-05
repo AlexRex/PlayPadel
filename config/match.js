@@ -33,6 +33,9 @@ exports.playMatch = function(req, res, user){
 				match.save();
 				console.log(match);
 			}
+			else{
+				res.redirect('/home', req.flash('playGame', 'Someone was before you, the game is full!'));
+			}
 			res.redirect('/home');
 		}
 		else{

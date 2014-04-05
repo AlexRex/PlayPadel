@@ -29,6 +29,7 @@ module.exports = function(app, passsport){
 		  if(!err){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
+		    	messageGame: req.flash('playGame'),
 		    	message: req.flash('loginMessage'),
 		    	matchs: match,
 		    	title: 'Home - PadelPlay',
