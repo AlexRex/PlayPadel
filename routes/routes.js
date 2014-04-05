@@ -1,6 +1,6 @@
 var passport = require('passport');
 var flash = require('connect-flash');
-var matchs = require('../config/match');
+var matchConfig = require('../config/match');
 var Match = require('../models/match');
 
 module.exports = function(app, passsport){
@@ -30,7 +30,6 @@ module.exports = function(app, passsport){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
 		    	messageGame: req.flash('playGame'),
-		    	message: req.flash('loginMessage'),
 		    	matchs: match,
 		    	title: 'Home - PadelPlay',
 		    	user: req.user
@@ -51,11 +50,11 @@ module.exports = function(app, passsport){
 
 	//SEARCH
 	app.get('/search', isLoggedIn, function(req, res){
-		console.log(req.param('city'));
 		var cit = new RegExp(req.param('city'), 'i');  // 'i' makes it case insensitive
 		Match.find({'city' : cit}, function(err, match){
 			if(!err){
 				res.render('home.jade', {
+					messageGame: req.flash('playGame'),
 					matchs: match,
 					title: req.param('city')+' - PadelPlay',
 					user: req.user
@@ -68,27 +67,33 @@ module.exports = function(app, passsport){
 	});
 
 	//Create Match
-	app.post('/matchs', function(req, res){
+	app.post('/matchs', isLoggedIn, function(req, res){
 		console.log(req.body);
-		matchs.createMatch(req, res, req.user);
+		matchConfig.createMatch(req, res, req.user);
+	});
+
+	app.get('/match/:id', isLoggedIn, function(req, res){
+		Match.findById(req.params.id, function(err, match){
+
+		})
 	});
 
 
 	//Play GAME
 	app.get('/play/:id', isLoggedIn, function(req, res){
-		matchs.playMatch(req, res, req.user);
+		matchConfig.playMatch(req, res, req.user);
 	});
 
 
 	//Don't play
 	app.get('/notplay/:id', isLoggedIn, function(req, res){
-		matchs.dontPlay(req, res, req.user);
+		matchConfig.dontPlay(req, res, req.user);
 	});
 
 
 	//Remove match
 	app.get('/remove/:id', isLoggedIn, function(req, res){
-		matchs.removeMatch(req, res, req.user);
+		matchConfig.removeMatch(req, res, req.user);
 	});
 
 
