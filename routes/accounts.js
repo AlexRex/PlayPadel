@@ -49,7 +49,7 @@ module.exports = function(app, passsport){
 	app.get('/auth/facebook/callback',
 	        passport.authenticate('facebook', {
 	        	successRedirect: '/home', 
-	        	failureRedirect: '/'
+	        	failureRedirect: '/profile'
 	        }));
 	
 
@@ -78,7 +78,7 @@ module.exports = function(app, passsport){
 	app.get('/connect/facebook/callback',
 		passport.authorize('facebook', {
 			successRedirect : '/home',
-			failureRedirect : '/',
+			failureRedirect : '/profile',
 			failureFlash: true
 	}));
 

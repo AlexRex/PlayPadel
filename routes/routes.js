@@ -18,6 +18,7 @@ module.exports = function(app, passsport){
 	//Have to be logged to access
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.jade', {
+			message: req.flash('loginMessage'),
 			user: req.user
 		});
 	});
@@ -28,6 +29,7 @@ module.exports = function(app, passsport){
 		  if(!err){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
+		    	message: req.flash('loginMessage'),
 		    	matchs: match,
 		    	title: 'Home - PadelPlay',
 		    	user: req.user

@@ -61,6 +61,9 @@ block content
 						span.fa.fa-user
 						|  Fb
 					-if(!user.facebook.token)
+						-if(message.length>0)
+							div.alert.alert-danger 
+								message= message
 						a.btn.btn-primary(href='/connect/facebook') Connect to Facebook
 					-if(user.facebook.token)
 						p
@@ -80,4 +83,5 @@ block content
 							| :
 							name= user.facebook.name + ' ' + user.facebook.lastName
 
-						a.btn.btn-warning(href='/unlink/facebook') Unlink account
+						-if(user.local.password)
+							a.btn.btn-warning(href='/unlink/facebook') Unlink account

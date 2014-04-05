@@ -135,7 +135,8 @@ module.exports = function(passport){
 		//async
 		process.nextTick(function() {
 
-			if(!req.user){ //USER DONT EXISTS
+
+			if(!req.user){ //USER DOESNT EXISTS
 
 				User.findOne({ 'facebook.id' : profile.id}, function(err, user){
 					if(err) return done(err);
@@ -183,7 +184,10 @@ module.exports = function(passport){
 									return done(null, newUser);
 								});
 							}
-							else return done(null, false, req.flash('loginMessage', 'The email from facebook is taken.'));
+							else 
+								if(user.local.password) return done(null, false, req.flash('loginMessage', 'The email from facebook is taken.'));
+								else //User linked his account and unlinked 
+									return done(null,false, req.flash('loginMessage', 'Ule'));
 						});
 					}
 				
@@ -191,21 +195,32 @@ module.exports = function(passport){
 			}
 			else { //USER ALREADY EXISTS
 
-				var user = req.user;
+				User.findOne({'facebook.email' : profile.emails[0].value}, function(err, user){
+					if(err) return done(err);
 
-				//update user credentials
-				user.facebook.id = profile.id;
-				user.facebook.token = token;
-				user.facebook.name = profile.name.givenName;
-				user.facebook.lastName = profile.name.familyName;
-				user.facebook.email = profile.emails[0].value;
-				
-				//save user
+					if(!user){
+						var user = req.user;
 
-				user.save(function(err) {
-					if(err) throw err;
-					return done(null, user);
-				});
+						//update user credentials
+						user.facebook.id = profile.id;
+						user.facebook.token = token;
+						user.facebook.name = profile.name.givenName;
+						user.facebook.lastName = profile.name.familyName;
+						user.facebook.email = profile.emails[0].value;
+						
+						//save user
+
+						user.save(function(err) {
+							if(err) throw err;
+							return done(null, user);
+						});
+					}
+					else{
+						return done(null, false, req.flash('loginMessage', 'The email from facebook is taken.'));
+					}
+
+
+				})
 			}
 		});
 
