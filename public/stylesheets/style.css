@@ -5,3 +5,18 @@ body {
 .matchs{
 	min-height: 300px;
 }
+
+.court{
+	height: 225px;
+	width: 450px;
+	background-image: url('/images/court.png');
+}
+
+.player{
+	padding:10px 0 0 100px;
+	height: 112px;
+	width: 225px;
+}
+
+
+
