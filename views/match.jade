@@ -1,0 +1,81 @@
+extends layout
+
+block content
+
+	div.container
+		nav.navbar.navbar-default.navbar-fixed-top
+			div.container
+				div.navbar-header
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+						span.sr-only Toggle Navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/home') PadelPlay
+				div.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li
+							a(href='/home') Home
+						li
+							a(href='/createMatch') Create Match
+
+						form.navbar-form.navbar-left(action='/search', method='get')
+							div.form-group
+								input.form-control(type='text', placeholder='City', name='city')
+							button.btn.btn-default(type='submit') Search
+					ul.nav.navbar-nav.navbar-right
+						a.btn.btn-default.navbar-btn(href='/profile')= user.local.name + ' ' + user.local.lastName
+						| 
+						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
+
+
+		div.well
+			div.row
+				div.col-sm-3
+					p
+						h3.strong 
+							a(href='/match/'+match._id)= match.city
+						
+						strong Club
+						| :
+						club= match.club
+						br
+						strong Price
+						| :
+						price= match.price
+						| €
+						br
+						strong Level
+						| :
+						lvl= match.cat
+						br
+						strong Players
+						| :
+						br
+						p1= match.players[0]
+						br
+						p2= match.players[1] 
+						br
+						p3= match.players[2]
+						br
+						p4= match.players[3]
+				div.col-sm-6
+					div.court
+						div.row
+							div.col-sm-6.player
+								p= match.players[0]
+							div.col-sm-6.player
+								p= match.players[1]
+							div.col-sm-6.player
+								p= match.players[2]
+							div.col-sm-6.player
+								p= match.players[3]
+
+			-if(match.players.indexOf(user.local.email)==-1 && match.players.length<4)
+				a.btn.btn-success(href='/play/'+match._id) Play
+			-if(match.players.indexOf(user.local.email)>=0 && match.owner!=user.local.email)
+				a.btn.btn-warning(href='/notplay/'+match._id) Don't play
+			-if(match.owner===user.local.email)
+				| 
+				a.btn.btn-danger(href='/remove/'+match._id) Remove 
+				

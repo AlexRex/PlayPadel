@@ -16,7 +16,7 @@ block content
 						li.active
 							a(href='/home') Home
 						li
-							a(href='/matchs') Create Match
+							a(href='/createMatch') Create Match
 
 						form.navbar-form.navbar-left(action='/search', method='get')
 							div.form-group
@@ -26,7 +26,6 @@ block content
 						a.btn.btn-default.navbar-btn(href='/profile')= user.local.name + ' ' + user.local.lastName
 						| 
 						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
-
 		div.row
 			each match, i in matchs
 				div.col-sm-3
@@ -36,7 +35,7 @@ block content
 								messageGame= messageGame
 						p
 							h3.strong 
-								city= matchs[i].city
+								a(href='/match/'+matchs[i]._id)= matchs[i].city
 							
 							strong Club
 							| :

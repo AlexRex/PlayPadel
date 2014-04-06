@@ -41,12 +41,17 @@ module.exports = function(app, passsport){
 	});
 
 	//View for create Match
-	app.get('/matchs', isLoggedIn, function(req, res){
-		res.render('matchs.jade', {
+	app.get('/createMatch', isLoggedIn, function(req, res){
+		res.render('createMatch.jade', {
 			title: 'Create Match'
 		});
 	});
 
+	//Create Match
+	app.post('/createMatch', isLoggedIn, function(req, res){
+		console.log(req.body);
+		matchConfig.createMatch(req, res, req.user);
+	});
 
 	//SEARCH
 	app.get('/search', isLoggedIn, function(req, res){
@@ -66,15 +71,19 @@ module.exports = function(app, passsport){
 
 	});
 
-	//Create Match
-	app.post('/matchs', isLoggedIn, function(req, res){
-		console.log(req.body);
-		matchConfig.createMatch(req, res, req.user);
-	});
+	
 
-	app.get('/match/:id', isLoggedIn, function(req, res){
+	app.get('/match/:id', /*isLoggedIn,*/ function(req, res){
+
 		Match.findById(req.params.id, function(err, match){
-
+			if(err) console.log(err);
+			if(match){
+				res.render('match.jade', {
+					user: req.user,
+					match: match
+				});
+			}
+			else console.log('Match not found');
 		})
 	});
 
