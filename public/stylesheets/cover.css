@@ -42,12 +42,28 @@ strong {
 
 /* ---------- LOGIN ---------- */
 
+.alert{
+  background: #ed9b94;
+  border: none;
+  border-radius: 0px 3px 3px 0px;
+  color: #f4f4f4;
+  display:block;
+  font-size: 11px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
 #login {
   margin: 50px auto;
   width: 300px;
 }
 
-form fieldset input[type="text"], input[type="password"] {
+
+form fieldset input[type="text"], input[type="password"], input[type='email'] {
   background: #e5e5e5;
   border: none;
   border-radius: 3px;

@@ -2,7 +2,7 @@ doctype html
 html(lang='en-Us')
 head
     meta(charset='utf-8')
-    title Login with Facebook or Twitter
+    title PlayPadel - Login
     link(rel='stylesheet', href='/stylesheets/cover.css')
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400,300')
     //if lt IE 9
@@ -12,7 +12,7 @@ head
   body
     #login
       h1
-        strong Welcome.
+        strong Welcome to PlayPadel.
         | Please login.
       -if(message.length>0)
         div.alert.alert-danger 
@@ -20,17 +20,16 @@ head
       form(action='/login', method='post')
         fieldset
           p
-            input(type='text', name='email', placeholder='Email', required)
+            input(type='email', name='email', placeholder='Email', required)
           p
             input(type='password', name='password', placeholder='Password' required)
           //
              JS because of IE support; better: placeholder="Password" 
           p
-            a(href='#') Don't have an account?
+            a(href='/signup') Don't have an account?
           p
             button(type='submit') Login
-      p
-        span.btn-round or
+
       p
         a.facebook-before
           span.fontawesome-facebook
