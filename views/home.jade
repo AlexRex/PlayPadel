@@ -26,6 +26,9 @@ block content
 						a.btn.btn-default.navbar-btn(href='/profile')= user.local.name + ' ' + user.local.lastName
 						| 
 						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
+						-if(user.group)
+							| 
+							a.btn.btn-default.navbar-btn(href='/admin/index') Admin
 		div.row
 			each match, i in matchs
 				div.col-sm-3

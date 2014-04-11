@@ -50,6 +50,7 @@ if ('development' == app.get('env')) {
 }
 require('./routes/accounts.js')(app, passport);
 require('./routes/routes.js')(app, passport);
+require('./routes/admins.js')(app, passport);
 
 
 http.createServer(app).listen(app.get('port'), function(){
