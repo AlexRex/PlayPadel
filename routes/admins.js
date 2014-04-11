@@ -6,7 +6,9 @@ var Match = require('../models/match');
 module.exports = function(app, passsport){
 
 	app.get('/admin/index', isAdmin, function(req, res){
-		res.send('OK');
+		res.render('admin.jade',{
+			user: req.user
+		});
 	});
 
 
