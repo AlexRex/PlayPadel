@@ -7,50 +7,20 @@ module.exports = function(app, passsport){
 
 	//INDEX
 	app.get('/index', function(req, res){
-		res.render('index', { title: 'Express' });
+		res.render('index', { title: 'PadelPlay', message: req.flash('loginMessage') });
 	});
 
 	app.get('/', function(req, res){
 		res.redirect('/home');
 	})
 
-	//LOGIN
-	//Show login form
-	app.get('/login', function(req, res){
-		res.render('login.jade', {message: req.flash('loginMessage')});
-	});
-
-	app.post('/login', passport.authenticate('local-login', {
-
-		successRedirect: '/home',
-		failureRedirect: '/login',
-		failureFlash: true
-	}));
-
-	//SIGNUP
-	app.get('/signup', function(req, res){
-		res.render('signup.jade', {message: req.flash('signupMessage')});
-	});
-
-	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/home',
-		failureRedirect : '/signup',
-		failureFlash : true
-	}));
-
-
 	//PROFILE
 	//Have to be logged to access
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.jade', {
+			message: req.flash('loginMessage'),
 			user: req.user
 		});
-	});
-
-	//LOGOUT
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
 	});
 
 	//HOME
@@ -59,6 +29,7 @@ module.exports = function(app, passsport){
 		  if(!err){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
+		    	message: req.flash('loginMessage'),
 		    	matchs: match,
 		    	title: 'Home - PadelPlay',
 		    	user: req.user

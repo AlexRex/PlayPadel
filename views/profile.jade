@@ -38,16 +38,50 @@ block content
 					h3
 						span.fa.fa-user
 						|  Local
+					-if(!user.local.email)
+						a.btn.btn-default(href='/connect/local') Connect
+					-if(user.local.email)
+						p
+							strong id
+							| : 
+							id= user._id
+							br
+							strong email
+							| : 
+							email= user.local.email
+							br
+							strong password
+							| : 
+							password= user.local.password
+				
 
-					p
-						strong id
-						| : 
-						id= user._id
-						br
-						strong email
-						| : 
-						email= user.local.email
-						br
-						strong password
-						| : 
-						password= user.local.password
+			div.col-sm-7
+				div.well
+					h3
+						span.fa.fa-user
+						|  Fb
+					-if(!user.facebook.token)
+						-if(message.length>0)
+							div.alert.alert-danger 
+								message= message
+						a.btn.btn-primary(href='/connect/facebook') Connect to Facebook
+					-if(user.facebook.token)
+						p
+							strong id
+							| : 
+							id= user.facebook.id
+							br
+							strong email
+							| : 
+							email= user.facebook.email
+							br
+							strong token
+							| : 
+							//-password= user.facebook.token
+							br
+							strong name
+							| :
+							name= user.facebook.name + ' ' + user.facebook.lastName
+
+						-if(user.local.password)
+							a.btn.btn-warning(href='/unlink/facebook') Unlink account
