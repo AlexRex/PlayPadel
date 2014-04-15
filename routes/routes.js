@@ -73,7 +73,7 @@ module.exports = function(app, passsport){
 
 	
 
-	app.get('/match/:id', /*isLoggedIn,*/ function(req, res){
+	app.get('/match/:id', isLoggedIn, function(req, res){
 
 		Match.findById(req.params.id, function(err, match){
 			if(err) console.log(err);
