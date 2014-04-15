@@ -9,18 +9,20 @@ module.exports = function(app, passsport){
 	app.get('/admin', isAdmin, function(req, res){
 		Users.find().lean().exec(function(err, users){
 			if(!err){
-				res.render('admin/admin.jade',{
+				res.render('admin/overview.jade',{
 					users: users
 				});
 			}
 		});
 	});
-	//Users View
+
+	/****Users View****/
 	app.get('/admin/users', isAdmin, function(req, res){
 		Users.find().lean().exec(function(err, users){
 			if(!err){
 				res.render('admin/users.jade',{
-					users: users
+					users: users,
+					title: 'Dashboard - Users'
 				});
 			}
 		});
@@ -69,9 +71,22 @@ module.exports = function(app, passsport){
 	});
 
 
+	/*** MATCHS ***/
+	app.get('/admin/matchs', isAdmin, function(req, res){
+		Match.find().lean().exec(function(err, matchs){
+		  if(!err){
+		  	//console.log("Partidos" +matchs);
+		    res.render('admin/matchs.jade', {
+		    	matchs: matchs,
+		    	title: 'Dashboard - Matchs'
+		    });
+		  }
+		  else
+		    console.log('Error: '+err);
+		});
+	});
+
 };
-
-
 
 // route middleware to make sure a user is the admin
 function isAdmin(req, res, next) {

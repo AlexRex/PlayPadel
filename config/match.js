@@ -65,10 +65,22 @@ exports.dontPlay = function(req, res, user){
 	});
 };
 
+//Delete match
+//You need to be the owner or be admin.
 exports.removeMatch = function(req, res, user){
-	Match.findByIdAndRemove(req.params.id, function(err, match){
+	Match.findById(req.params.id, function(err, match){
 		if(!err){
-			res.redirect('/home');
+			if(match.owner == user.local.email || user.group == 'admin'){
+				match.remove(function(err, match){
+					if(!err){
+						res.redirect('/home');
+					}
+					else{
+						res.send(200);
+						console.log('Error: '+err);
+					}
+				});
+			}
 		}
 		else{
 			res.send(400);

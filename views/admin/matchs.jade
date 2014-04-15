@@ -1,0 +1,81 @@
+extends layoutAdmin
+
+block content
+    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') PlayPadel Admin Panel
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Dashboard
+            li
+              a(href='#') Settings
+            li
+              a(href='#') Profile
+            li
+              a(href='/') Home
+
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li
+              a(href='/admin') Overview
+            li
+              a(href='#') Reports
+            li
+              a(href='#') Analytics
+            li
+              a(href='#') Export
+          ul.nav.nav-sidebar
+            li
+              a(href='/admin/users') Users
+            li.active
+              a(href='/admin/matchs') Matchs
+
+        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+          h1.page-header Dashboard
+          .row.placeholders
+            .col-xs-6.col-sm-3.placeholder
+              h4 Label
+              span.text-muted Something else
+            .col-xs-6.col-sm-3.placeholder
+              h4 Label
+              span.text-muted Something else
+            .col-xs-6.col-sm-3.placeholder
+              h4 Label
+              span.text-muted Something else
+            .col-xs-6.col-sm-3.placeholder
+              h4 Label
+              span.text-muted Something else
+          h2.sub-header Users
+          .table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th City
+                  th Club
+                  th Price
+                  th Cat
+                  th Owner
+                  th Options
+                  th 
+              tbody
+                each match, i in matchs
+                  tr
+                    td= i
+                    td= matchs[i].city
+                    td= matchs[i].club
+                    td= matchs[i].price
+                    td= matchs[i].cat
+                    td= matchs[i].owner
+                    td 
+                      a.btn.btn-danger(href='/deletematch/'+matchs[i]._id) Delete Match
+

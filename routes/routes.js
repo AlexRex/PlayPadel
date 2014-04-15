@@ -72,7 +72,7 @@ module.exports = function(app, passsport){
 	});
 
 	
-
+	//FIND MATCH BY ID
 	app.get('/match/:id', isLoggedIn, function(req, res){
 
 		Match.findById(req.params.id, function(err, match){
@@ -101,7 +101,7 @@ module.exports = function(app, passsport){
 
 
 	//Remove match
-	app.get('/remove/:id', isLoggedIn, function(req, res){
+	app.get('/deletematch/:id', isLoggedIn, function(req, res){
 		matchConfig.removeMatch(req, res, req.user);
 	});
 

@@ -10,11 +10,6 @@ module.exports = function(app, passsport){
 	// =============================================================================
 
 	//LOGIN
-	//Show login form
-	app.get('/login', function(req, res){
-		res.render('login.jade', {message: req.flash('loginMessage')});
-	});
-
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/home',
 		failureRedirect: '/index',
