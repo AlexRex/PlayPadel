@@ -15,7 +15,6 @@ var configPS = require('./config/passport')(passport);
 
 var configDB = require('./config/database.js')(mongoose);
 
-
 var app = express();
 
 app.configure(function(){
@@ -48,10 +47,10 @@ app.configure(function(){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
 require('./routes/accounts.js')(app, passport);
 require('./routes/routes.js')(app, passport);
 require('./routes/admin.js')(app, passport);
-
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

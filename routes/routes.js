@@ -106,6 +106,12 @@ module.exports = function(app, passsport){
 	});
 
 
+	//404
+	app.use(function (req,res) { //1
+	    res.send('404 on search for ' +req.url); //2
+	});
+
+
 
 };
 

@@ -9,9 +9,16 @@ module.exports = function(app, passsport){
 	app.get('/admin', isAdmin, function(req, res){
 		Users.find().lean().exec(function(err, users){
 			if(!err){
-				res.render('admin/overview.jade',{
-					users: users
-				});
+				Match.find().lean().exec(function(err, matchs){
+					if(!err){
+						res.render('admin/overview.jade',{
+							users: users,
+							matchs: matchs,
+							title: 'Dashboard - Overview'
+						});
+					}
+				})
+				
 			}
 		});
 	});
