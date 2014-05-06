@@ -19,7 +19,8 @@ module.exports = function(app, passsport){
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.jade', {
 			message: req.flash('loginMessage'),
-			user: req.user
+			user: req.user,
+			title: req.user.local.name + ' ' + req.user.local.lastName
 		});
 	});
 
@@ -76,7 +77,10 @@ module.exports = function(app, passsport){
 	app.get('/match/:id', isLoggedIn, function(req, res){
 
 		Match.findById(req.params.id, function(err, match){
-			if(err) console.log(err);
+			if(err) {
+				console.log(err);
+				res.redirect('/404');
+			}
 			if(match){
 				res.render('match.jade', {
 					user: req.user,
