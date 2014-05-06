@@ -126,12 +126,12 @@ module.exports = function(passport){
 		clientID : configAuth.facebookAuth.clientID,
 		clientSecret: configAuth.facebookAuth.clientSecret,
 		callbackURL: configAuth.facebookAuth.callbackURL,
+		profileFields: ['id', 'displayName', 'photos', 'email', 'username', 'name', 'gender', 'profileUrl'],
 		passReqToCallback: true
 
 	},
 	//Facebook send back token and profile
 	function(req, token, refreshToken, profile, done){
-		
 		//async
 		process.nextTick(function() {
 
@@ -149,6 +149,7 @@ module.exports = function(passport){
 					        user.facebook.name  = profile.name.givenName;
 					        user.facebook.lastName = profile.name.familyName;
 					        user.facebook.email = profile.emails[0].value;
+					        user.facebook.photo = profile.photos[0].value;
 					        user.local.email = profile.emails[0].value; //Save the email from fb if the user doesn't exists
 
 					        user.save(function(err) {
@@ -173,6 +174,7 @@ module.exports = function(passport){
 								newUser.facebook.name = profile.name.givenName;
 								newUser.facebook.lastName = profile.name.familyName;
 								newUser.facebook.email = profile.emails[0].value;
+								newUser.facebook.photo = profile.photos[0].value;
 								newUser.local.email = profile.emails[0].value; //Save the email and name from fb if the user doesn't exists
 								newUser.local.name = profile.name.givenName;
 								newUser.local.lastName = profile.name.familyName;
@@ -207,6 +209,7 @@ module.exports = function(passport){
 						user.facebook.name = profile.name.givenName;
 						user.facebook.lastName = profile.name.familyName;
 						user.facebook.email = profile.emails[0].value;
+						user.facebook.photo = profile.photos[0].value;
 						
 						//save user
 

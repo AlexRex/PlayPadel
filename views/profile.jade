@@ -28,7 +28,6 @@ block content
 
 		div.page-header.text-center
 			h1
-				span.fa.fa-anchor
 				|  Profile Page
 
 
@@ -38,22 +37,20 @@ block content
 					h3
 						span.fa.fa-user
 						|  Local
-					-if(!user.local.email)
-						a.btn.btn-default(href='/connect/local') Connect
-					-if(user.local.email)
-						p
-							strong id
-							| : 
-							id= user._id
-							br
-							strong email
-							| : 
-							email= user.local.email
-							br
-							strong password
-							| : 
-							password= user.local.password
-				
+	
+					p
+						strong id
+						| : 
+						id= user._id
+						br
+						strong email
+						| : 
+						email= user.local.email
+						br
+						strong password
+						| : 
+						password= user.local.password
+			
 
 			div.col-sm-7
 				div.well
@@ -66,6 +63,7 @@ block content
 								message= message
 						a.btn.btn-primary(href='/connect/facebook') Connect to Facebook
 					-if(user.facebook.token)
+						img(src= user.facebook.photo)
 						p
 							strong id
 							| : 
