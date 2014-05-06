@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-
 //Schema for USER
 
 var matchSchema = new Schema({
@@ -15,7 +14,6 @@ var matchSchema = new Schema({
 	cat: {type: String},
 	players: {type: [String]},
 	owner: {type: String}
-
 });
 
 

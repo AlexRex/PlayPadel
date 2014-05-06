@@ -1,0 +1,33 @@
+extends layout
+
+block content
+
+	div.container
+		div.col-sm-6.col-sm-offset-3
+
+			h1.fa.fa-sign-in  Signup
+
+			-if(message.length>0)
+				div.alert.alert-danger 
+					message= message
+
+			form(action='/signup', method='post')
+				div.form-group
+					label Email
+					input.form-control(type='email', name='email', required)
+				div.form-group
+					label Password
+					input.form-control(type='password', name='password', required)
+				div.form-group
+					label Name
+					input.form-control(type='text', name='name', required)
+				div.form-group
+					label Last Name
+					input.form-control(type='text', name='lastName', required)
+
+				button.btn.btn-warning.btn-lg(type='submit') Signup
+
+			hr
+
+			p Already have an account?  
+				a(href='/login') Login

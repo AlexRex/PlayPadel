@@ -1,33 +1,40 @@
-extends layout
+doctype html
+html(lang='en-Us')
+head
+    meta(charset='utf-8')
+    title PlayPadel - Signup
+    link(rel='stylesheet', href='/stylesheets/cover.css')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400,300')
+    //if lt IE 9
+      script(src='http://html5shiv.googlecode.com/svn/trunk/html5.js')
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
-block content
+  body
+    #login
+      h1
+        strong Welcome to PlayPadel.
+        | Fill with your data.
+      -if(message.length>0)
+        div.alert.alert-danger 
+          message= message
 
-	div.container
-		div.col-sm-6.col-sm-offset-3
+      form(action='/signup', method='post')
+        fieldset
+          p
+            input(type='email', name='email', placeholder='Email', required)
+          p
+            input(type='password', name='password', placeholder='Password', required)
+          p
+            input(type='text', name='name', placeholder='Name', required)
+          p
+            input(type='text', name='lastName', placeholder='Last Name', required)
+          p
+            a(href='/index') Already have an account? Login
+          p
+            button(type='submit') Signup
 
-			h1.fa.fa-sign-in  Signup
 
-			-if(message.length>0)
-				div.alert.alert-danger 
-					message= message
-
-			form(action='/signup', method='post')
-				div.form-group
-					label Email
-					input.form-control(type='email', name='email', required)
-				div.form-group
-					label Password
-					input.form-control(type='password', name='password', required)
-				div.form-group
-					label Name
-					input.form-control(type='text', name='name', required)
-				div.form-group
-					label Last Name
-					input.form-control(type='text', name='lastName', required)
-
-				button.btn.btn-warning.btn-lg(type='submit') Signup
-
-			hr
-
-			p Already have an account?  
-				a(href='/login') Login
+        p
+          a.facebook-before
+            span.fontawesome-facebook
+          a.facebook(href='/auth/facebook') Login Using Facbook

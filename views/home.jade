@@ -16,7 +16,7 @@ block content
 						li.active
 							a(href='/home') Home
 						li
-							a(href='/matchs') Create Match
+							a(href='/createMatch') Create Match
 
 						form.navbar-form.navbar-left(action='/search', method='get')
 							div.form-group
@@ -26,14 +26,19 @@ block content
 						a.btn.btn-default.navbar-btn(href='/profile')= user.local.name + ' ' + user.local.lastName
 						| 
 						a.btn.btn-default.navbar-btn.btn-danger(href='/logout') Logout
-
+						-if(user.group=='admin')
+							| 
+							a.btn.btn-default.navbar-btn(href='/admin') Admin
 		div.row
 			each match, i in matchs
 				div.col-sm-3
 					div.well.matchs
+						-if(messageGame.length>0)
+							div.alert.alert-danger
+								messageGame= messageGame
 						p
 							h3.strong 
-								city= matchs[i].city
+								a(href='/match/'+matchs[i]._id)= matchs[i].city
 							
 							strong Club
 							| :
@@ -59,13 +64,13 @@ block content
 							br
 							p4= matchs[i].players[3]
 
-						-if(matchs[i].players.indexOf(user.local.email)==-1 && matchs[i].players.length<3)
+						-if(matchs[i].players.indexOf(user.local.email)==-1 && matchs[i].players.length<4)
 							a.btn.btn-success(href='/play/'+matchs[i]._id) Play
 						-if(matchs[i].players.indexOf(user.local.email)>=0 && matchs[i].owner!=user.local.email)
 							a.btn.btn-warning(href='/notplay/'+matchs[i]._id) Don't play
 						-if(matchs[i].owner===user.local.email)
 							| 
-							a.btn.btn-danger(href='/remove/'+matchs[i]._id) Remove 
+							a.btn.btn-danger(href='/deletematch/'+matchs[i]._id) Remove 
 							
 						
 						

@@ -1,6 +1,6 @@
 var passport = require('passport');
 var flash = require('connect-flash');
-var matchs = require('../config/match');
+var matchConfig = require('../config/match');
 var Match = require('../models/match');
 
 module.exports = function(app, passsport){
@@ -19,7 +19,8 @@ module.exports = function(app, passsport){
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.jade', {
 			message: req.flash('loginMessage'),
-			user: req.user
+			user: req.user,
+			title: req.user.local.name + ' ' + req.user.local.lastName
 		});
 	});
 
@@ -29,7 +30,7 @@ module.exports = function(app, passsport){
 		  if(!err){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
-		    	message: req.flash('loginMessage'),
+		    	messageGame: req.flash('playGame'),
 		    	matchs: match,
 		    	title: 'Home - PadelPlay',
 		    	user: req.user
@@ -41,20 +42,25 @@ module.exports = function(app, passsport){
 	});
 
 	//View for create Match
-	app.get('/matchs', isLoggedIn, function(req, res){
-		res.render('matchs.jade', {
+	app.get('/createMatch', isLoggedIn, function(req, res){
+		res.render('createMatch.jade', {
 			title: 'Create Match'
 		});
 	});
 
+	//Create Match
+	app.post('/createMatch', isLoggedIn, function(req, res){
+		console.log(req.body);
+		matchConfig.createMatch(req, res, req.user);
+	});
 
 	//SEARCH
 	app.get('/search', isLoggedIn, function(req, res){
-		console.log(req.param('city'));
 		var cit = new RegExp(req.param('city'), 'i');  // 'i' makes it case insensitive
 		Match.find({'city' : cit}, function(err, match){
 			if(!err){
 				res.render('home.jade', {
+					messageGame: req.flash('playGame'),
 					matchs: match,
 					title: req.param('city')+' - PadelPlay',
 					user: req.user
@@ -66,28 +72,47 @@ module.exports = function(app, passsport){
 
 	});
 
-	//Create Match
-	app.post('/matchs', function(req, res){
-		console.log(req.body);
-		matchs.createMatch(req, res, req.user);
+	
+	//FIND MATCH BY ID
+	app.get('/match/:id', isLoggedIn, function(req, res){
+
+		Match.findById(req.params.id, function(err, match){
+			if(err) {
+				console.log(err);
+				res.redirect('/404');
+			}
+			if(match){
+				res.render('match.jade', {
+					user: req.user,
+					match: match
+				});
+			}
+			else console.log('Match not found');
+		})
 	});
 
 
 	//Play GAME
 	app.get('/play/:id', isLoggedIn, function(req, res){
-		matchs.playMatch(req, res, req.user);
+		matchConfig.playMatch(req, res, req.user);
 	});
 
 
 	//Don't play
 	app.get('/notplay/:id', isLoggedIn, function(req, res){
-		matchs.dontPlay(req, res, req.user);
+		matchConfig.dontPlay(req, res, req.user);
 	});
 
 
 	//Remove match
-	app.get('/remove/:id', isLoggedIn, function(req, res){
-		matchs.removeMatch(req, res, req.user);
+	app.get('/deletematch/:id', isLoggedIn, function(req, res){
+		matchConfig.removeMatch(req, res, req.user);
+	});
+
+
+	//404
+	app.use(function (req,res) { //1
+	    res.send('404 on search for ' +req.url); //2
 	});
 
 

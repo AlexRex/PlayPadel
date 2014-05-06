@@ -10,14 +10,9 @@ module.exports = function(app, passsport){
 	// =============================================================================
 
 	//LOGIN
-	//Show login form
-	app.get('/login', function(req, res){
-		res.render('login.jade', {message: req.flash('loginMessage')});
-	});
-
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/home',
-		failureRedirect: '/login',
+		failureRedirect: '/index',
 		failureFlash: true
 	}));
 
@@ -57,17 +52,6 @@ module.exports = function(app, passsport){
 	// =============================================================================
 	// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 	// =============================================================================
-
-
-	// Local --------------------------------
-	app.get('/connect/local', function(req, res) {
-		res.render('connect-local.jade', { message: req.flash('loginMessage') });
-	});
-	app.post('/connect/local', passport.authenticate('local-signup', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
-	}));
 
 	// Fb -------------------------------
 

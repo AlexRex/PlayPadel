@@ -22,7 +22,8 @@ var userSchema = new Schema({
 		email: String,
 		lastName: String,
 		name: String
-	}
+	},
+	group: {type: String}
 
 });
 
