@@ -51,6 +51,7 @@ if ('development' == app.get('env')) {
 require('./routes/accounts.js')(app, passport);
 require('./routes/routes.js')(app, passport);
 require('./routes/admin.js')(app, passport);
+require('./routes/matchs.js')(app, passport);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
