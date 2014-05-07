@@ -126,12 +126,13 @@ module.exports = function(passport){
 		clientID : configAuth.facebookAuth.clientID,
 		clientSecret: configAuth.facebookAuth.clientSecret,
 		callbackURL: configAuth.facebookAuth.callbackURL,
-		profileFields: ['id', 'displayName', 'photos', 'email', 'username', 'name', 'gender', 'profileUrl'],
+		profileFields: ['id', 'displayName', 'email', 'username', 'name', 'gender', 'profileUrl', 'photos'],
 		passReqToCallback: true
 
 	},
 	//Facebook send back token and profile
 	function(req, token, refreshToken, profile, done){
+		console.log(profile);
 		//async
 		process.nextTick(function() {
 

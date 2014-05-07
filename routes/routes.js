@@ -2,6 +2,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var matchConfig = require('../config/match');
 var Match = require('../models/match');
+var Comments = require('node-comment')({database: 'kdd'});
 
 module.exports = function(app, passsport){
 
