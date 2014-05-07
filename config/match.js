@@ -14,7 +14,6 @@ exports.createMatch = function(req, res, user){
 
 		mat.save(function(err){
 			if(!err){
-				console.log('Created');
 				res.redirect('/home');
 			}
 			else
@@ -25,6 +24,7 @@ exports.createMatch = function(req, res, user){
 
 //Add user to match
 exports.playMatch = function(req, res, user){
+
 	Match.findById(req.params.id, function(err, match){
 		if(!err){
 			console.log('Found ');
