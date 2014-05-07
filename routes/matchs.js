@@ -1,8 +1,12 @@
 var passport = require('passport');
 var flash = require('connect-flash');
+
 var matchConfig = require('../config/match');
+var commentConfig = require('../config/comment');
+
 var Match = require('../models/match');
-var Comments = require('node-comment')({database: 'kdd'});
+var Comments = require('../models/comment');
+
 
 module.exports = function(app, passsport){
 
@@ -29,13 +33,22 @@ module.exports = function(app, passsport){
 				res.redirect('/404');
 			}
 			if(match){
-				res.render('match.jade', {
-					user: req.user,
-					match: match
-				});
+				
+				Comments.find({thread: req.params.id, type: 'match'}, function(err, comments){
+					res.render('match.jade', {
+						user: req.user,
+						match: match,
+						comments: comments
+					});
+				})
 			}
+			
 			else console.log('Match not found');
+		
+
 		})
+
+
 	});
 
 
@@ -55,6 +68,7 @@ module.exports = function(app, passsport){
 	app.get('/deletematch/:id', isLoggedIn, function(req, res){
 		matchConfig.removeMatch(req, res, req.user);
 	});
+
 
 };
 

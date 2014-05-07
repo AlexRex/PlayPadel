@@ -1,8 +1,12 @@
 var passport = require('passport');
 var flash = require('connect-flash');
+
 var matchConfig = require('../config/match');
+var commentConfig = require('../config/comment');
+
+
 var Match = require('../models/match');
-var Comments = require('node-comment')({database: 'kdd'});
+var Comments = require('../models/comment');
 
 module.exports = function(app, passsport){
 
@@ -61,10 +65,23 @@ module.exports = function(app, passsport){
 	});
 
 
+	//Add comment
+	app.post('/addComment/:id', isLoggedIn, function(req, res){
+		console.log(req.params.id);
+		console.log(req.body);
+		commentConfig.newComment(req, res, req.user, 'match');
+	});
+
+	app.get('/deleteComment/:id', isLoggedIn, function(req, res){
+		commentConfig.deleteComment(req, res, req.user);
+	});
+
+
 	//404
 	app.use(function (req,res) { //1
 	    res.send('404 on search for ' +req.url); //2
 	});
+
 
 
 
