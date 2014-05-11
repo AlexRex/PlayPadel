@@ -25,6 +25,7 @@ module.exports = function(app, passsport){
 			console.log(user);
 			if(user){
 				res.render('profile.jade', {
+					message: req.flash('loginMessage'),
 					user: user,
 					title: user.local.name + ' ' + user.local.lastName
 				});
