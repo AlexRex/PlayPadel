@@ -19,15 +19,6 @@ module.exports = function(app, passsport){
 		res.redirect('/home');
 	})
 
-	//PROFILE
-	//Have to be logged to access
-	app.get('/profile', isLoggedIn, function(req, res){
-		res.render('profile.jade', {
-			message: req.flash('loginMessage'),
-			user: req.user,
-			title: req.user.local.name + ' ' + req.user.local.lastName
-		});
-	});
 
 	//HOME
 	app.get('/home', isLoggedIn, function(req, res){
