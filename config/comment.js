@@ -20,7 +20,7 @@ exports.newComment = function(req, res, user, type){
 			}
 			else
 				console.log('ADDING COMMENT ERROR: '+err);
-		})
+		});
 };
 
 
@@ -37,7 +37,7 @@ exports.deleteComment = function(req, res, user){
 					}
 					else
 						console.log('Error deleting comment: '+err);
-				})
+				});
 			}
 			else{
 				console.log('Author not the same');
