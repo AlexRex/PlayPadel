@@ -4,8 +4,8 @@ var flash = require('connect-flash');
 var matchConfig = require('../config/match');
 var commentConfig = require('../config/comment');
 
-var Match = require('../models/match');
-var Comments = require('../models/comment');
+var MatchM = require('../models/match');
+var CommentsM = require('../models/comment');
 
 
 module.exports = function(app, passsport) {
@@ -27,14 +27,14 @@ module.exports = function(app, passsport) {
 	//FIND MATCH BY ID
 	app.get('/match/:id', isLoggedIn, function(req, res) {
 
-		Match.findById(req.params.id, function(err, match) {
+		MatchM.findById(req.params.id, function(err, match) {
 			if (err) {
 				console.log(err);
 				res.redirect('/404');
 			}
 			if (match) {
 
-				Comments.find({
+				CommentsM.find({
 					thread: req.params.id,
 					type: 'match'
 				}, function(err, comments) {

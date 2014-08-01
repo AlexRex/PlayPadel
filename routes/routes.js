@@ -5,7 +5,7 @@ var matchConfig = require('../config/match');
 var commentConfig = require('../config/comment');
 
 
-var Match = require('../models/match');
+var MatchM = require('../models/match');
 var Comments = require('../models/comment');
 
 module.exports = function(app, passsport){
@@ -17,12 +17,12 @@ module.exports = function(app, passsport){
 
 	app.get('/', function(req, res){
 		res.redirect('/home');
-	})
+	});
 
 
 	//HOME
 	app.get('/home', isLoggedIn, function(req, res){
-		Match.find().lean().exec(function(err, match){
+		MatchM.find().lean().exec(function(err, match){
 		  if(!err){
 		  	//console.log("Partidos" +matchs);
 		    res.render('home.jade', {
@@ -40,7 +40,7 @@ module.exports = function(app, passsport){
 	//SEARCH
 	app.get('/search', isLoggedIn, function(req, res){
 		var cit = new RegExp(req.param('city'), 'i');  // 'i' makes it case insensitive
-		Match.find({'city' : cit}, function(err, match){
+		MatchM.find({'city' : cit}, function(err, match){
 			if(!err){
 				res.render('home.jade', {
 					messageGame: req.flash('playGame'),
@@ -68,11 +68,7 @@ module.exports = function(app, passsport){
 	});
 
 
-	//404
-	app.use(function (req,res) { //1
-	    res.send('404 on search for ' +req.url); //2
-	});
-
+	
 
 
 
