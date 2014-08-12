@@ -23,5 +23,31 @@ body {
 	background: #f5f5f5;
 }
 
+img{
+	max-width: 100%;
+	height: auto;
+}
 
+/*COMMENTS*/
 
+.comments auth{
+	font-size: .8em;
+	color: #0092B2;
+}
+.comments date{
+	font-size: .5em;
+}
+
+.comments comm{
+	font-size: .6em;
+	margin-top: 6px;
+}
+
+.comments .remove{
+	font-size: .6em;
+	color: #777;
+}
+
+.newComm{
+	margin-top: 9px;
+}

@@ -78,4 +78,18 @@ block content
 			-if(match.owner===user.local.email)
 				| 
 				a.btn.btn-danger(href='/deleteMatch/'+match._id) Remove 
+
+		div.well
+			h3.strong 	
+				each comment, i in comments
+					div.comments
+						div.titlec
+							auth= comment.author
+							//date= comment.created.toUTCString()	
+							comm= comment.content
+						-if(comment.authorEmail === user.local.email)
+							a.remove(href='/deleteComment/'+comment._id) Remove
+				div.newComm
+					form(action='/addComment/'+match._id, method='post')
+						input.form-control(type='float', name='commentContent', placeholder='Write a comment', required)
 				

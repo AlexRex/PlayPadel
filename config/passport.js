@@ -54,7 +54,6 @@ module.exports = function(passport){
 				//create user
 				else {
 					var newUser = new User();
-					console.log(req.body.name);
 					//Set the user's local credentials
 					newUser.local.email = email;
 					newUser.local.name = req.body.name;
@@ -132,7 +131,6 @@ module.exports = function(passport){
 	},
 	//Facebook send back token and profile
 	function(req, token, refreshToken, profile, done){
-		console.log(profile);
 		//async
 		process.nextTick(function() {
 
@@ -224,7 +222,7 @@ module.exports = function(passport){
 					}
 
 
-				})
+				});
 			}
 		});
 

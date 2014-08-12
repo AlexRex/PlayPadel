@@ -72,7 +72,8 @@ block content
                     td= i
                     td= users[i].local.name
                     td= users[i].local.lastName
-                    td= users[i].local.email
+                    td 
+                     a(href='/user/' + users[i]._id)= users[i].local.email
                     - if(users[i].facebook)
                       td= users[i].facebook.email
                     - else
