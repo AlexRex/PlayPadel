@@ -46,7 +46,7 @@ http.createServer(app).listen(port, function(){
   console.log('Express server listening on port ' + port);
 });
 
-/* Express 3
+/* Express 33
 app.configure(function(){
 	app.set('port', process.env.PORT || 2000);
 	app.set('views', path.join(__dirname, 'views'));
