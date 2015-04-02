@@ -63,7 +63,7 @@ block content
 								message= message
 						a.btn.btn-primary(href='/connect/facebook') Connect to Facebook
 					-if(user.facebook.token)
-						img(src= 'http://graph.facebook.com/'+user.facebook.id+'/picture?type=large')
+						img(src= user.facebook.photo)		
 						p
 							strong id
 							| : 
