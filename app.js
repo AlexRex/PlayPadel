@@ -15,10 +15,13 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
+var sequelize = require('sequelize'); //postgres orm
 
 var configPS = require('./config/passport')(passport);
 
 var configDB = require('./config/database.js')(mongoose);
+var configSQL = require('./config/server.js')(sequelize); //postgresql database
+
 
 var app = express();
 var port = process.env.PORT || 2000;

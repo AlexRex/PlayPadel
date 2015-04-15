@@ -1,0 +1,20 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./db.development.sqlite"
+  },
+  "test": {
+    "username": "postgres",
+    "password": 1234,
+    "database": "playpadel",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

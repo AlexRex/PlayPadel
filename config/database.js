@@ -1,6 +1,3 @@
-
-
-
 module.exports = function(mongoose){
 	
 	var uristring = 
@@ -15,5 +12,7 @@ module.exports = function(mongoose){
 		else
 			console.log('Connected to Database.');
 	});
+
+	
 
 };
