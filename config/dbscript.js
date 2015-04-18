@@ -22,7 +22,7 @@ pg.connect(connectionStringPri, function(err, client, done){
 		client.end(); //Close connection
 
 		//Raw Queries. Updated: Now sequelizes does the work
-		/*else{
+		else{
 			//Create a new connection to the new db
 			pg.connect(connectionStringPost, function(err, clientOrg, done){
 				//Create PlayPadel DB Structure 
@@ -76,6 +76,6 @@ pg.connect(connectionStringPri, function(err, client, done){
 					client.end(); //Close both connections
 				});
 			});
-		}*/
+		}
 	});
 });
