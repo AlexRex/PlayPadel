@@ -15,13 +15,11 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
-var sequelize = require('sequelize'); //postgres orm
 
+//Database and passport config
 var configPS = require('./config/passport')(passport);
-
 var configDB = require('./config/database.js')(mongoose);
-var configSQL = require('./config/server.js')(sequelize); //postgresql database
-
+var configSQL = require('./pgmodels')
 
 var app = express();
 var port = process.env.PORT || 2000;
@@ -29,8 +27,7 @@ var port = process.env.PORT || 2000;
 //CONFIG
 app.use(cookieParser());
 app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,10 +40,14 @@ app.use(passport.session());
 app.use(flash());
 
 
-
-
 http.createServer(app).listen(port, function(){
   console.log('Express server listening on port ' + port);
+
+  //DB initializes with Express server
+  configSQL.sequelize.sync({ force: true}).success(function(){
+  	console.log('Database initialized successfully');
+  })
+
 });
 
 /* Express 3
@@ -87,6 +88,7 @@ if ('development' == env) {
 
 }
 
+//Routes
 require('./routes/accounts.js')(app, passport);
 require('./routes/routes.js')(app, passport);
 require('./routes/admin.js')(app, passport);
