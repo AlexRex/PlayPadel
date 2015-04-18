@@ -5,7 +5,7 @@ module.exports = function(sequelize){
 	var user = sequelize.define("user",{
 		email:{
 	    	type: Sequelize.STRING,
-	   	 primaryKey: true
+	   	 unique: true
 	 	 },
 	 	 first_name: { type: Sequelize.STRING },
 	 	 last_name: { type: Sequelize.STRING },

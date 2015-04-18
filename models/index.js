@@ -1,8 +1,5 @@
-module.exports = function(Sequelize){
-  var path      = require("path");
-  var env       = process.env.NODE_ENV || "test";
-  var config    = require(__dirname + '/../config/config.json')[env];
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+module.exports = function(sequelize){
+  
   var models    = require('../models/models.js')(sequelize);
 
   sequelize
